@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(value = "github-proxy")
+@FeignClient(value = "github-proxy", configuration = FeignConfig.class)
 public interface GithubProxy {
 
     @GetMapping("/users/{username}/repos")
