@@ -1,5 +1,6 @@
-package com.example.githubproxyproject;
+package com.example.githubproxyproject.handlers;
 
+import com.example.githubproxyproject.exceptions.UserNotFoundException;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 

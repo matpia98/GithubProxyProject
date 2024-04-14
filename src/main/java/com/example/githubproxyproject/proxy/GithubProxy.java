@@ -1,5 +1,8 @@
-package com.example.githubproxyproject;
+package com.example.githubproxyproject.proxy;
 
+import com.example.githubproxyproject.config.FeignConfig;
+import com.example.githubproxyproject.dtos.BranchDto;
+import com.example.githubproxyproject.dtos.GetAllReposDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

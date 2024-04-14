@@ -1,7 +1,7 @@
-package com.example.githubproxyproject;
+package com.example.githubproxyproject.config;
 
+import com.example.githubproxyproject.handlers.CustomErrorDecoder;
 import feign.RequestInterceptor;
-import feign.RequestTemplate;
 import feign.codec.Decoder;
 import feign.codec.ErrorDecoder;
 import feign.jackson.JacksonDecoder;

@@ -1,4 +1,4 @@
-package com.example.githubproxyproject;
+package com.example.githubproxyproject.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;

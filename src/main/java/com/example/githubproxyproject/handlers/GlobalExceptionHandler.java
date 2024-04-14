@@ -1,5 +1,9 @@
-package com.example.githubproxyproject;
+package com.example.githubproxyproject.handlers;
 
+import com.example.githubproxyproject.exceptions.UserNotFoundException;
+import com.example.githubproxyproject.errordto.ErrorApiLimitExceededDto;
+import com.example.githubproxyproject.errordto.ErrorResponseFormatDto;
+import com.example.githubproxyproject.errordto.ErrorUserResponseDto;
 import feign.FeignException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;

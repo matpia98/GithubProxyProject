@@ -1,7 +1,10 @@
-package com.example.githubproxyproject;
+package com.example.githubproxyproject.controller;
 
+import com.example.githubproxyproject.dtos.BranchDto;
+import com.example.githubproxyproject.dtos.GetAllReposDto;
+import com.example.githubproxyproject.proxy.GithubProxy;
+import com.example.githubproxyproject.dtos.RepositoryBranchesDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
