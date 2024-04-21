@@ -1,10 +1,13 @@
 package com.example.githubproxyproject.controller;
 
 import com.example.githubproxyproject.dtos.response.DeleteRepoResponseDto;
+import com.example.githubproxyproject.dtos.response.GetAllReposResponseDto;
 import com.example.githubproxyproject.model.Repo;
 import com.example.githubproxyproject.dtos.request.CreateRepoRequestDto;
 import com.example.githubproxyproject.dtos.response.CreateRepoResponseDto;
 import org.springframework.http.HttpStatus;
+
+import java.util.List;
 
 public class RepoMapper {
 
@@ -18,5 +21,9 @@ public class RepoMapper {
 
     public static DeleteRepoResponseDto mapFromRepoToDeleteRepoResponseDto(Long id) {
         return new DeleteRepoResponseDto("Removed repo with id: " + id, HttpStatus.OK);
+    }
+
+    public static GetAllReposResponseDto mapFromRepoToGetAllReposResponseDto(List<Repo> allRepos) {
+        return new GetAllReposResponseDto(allRepos);
     }
 }
