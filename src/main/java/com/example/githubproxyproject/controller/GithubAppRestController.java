@@ -1,5 +1,7 @@
 package com.example.githubproxyproject.controller;
 
+import com.example.githubproxyproject.Repo;
+import com.example.githubproxyproject.RepoAdder;
 import com.example.githubproxyproject.dtos.BranchDto;
 import com.example.githubproxyproject.dtos.GetAllReposDto;
 import com.example.githubproxyproject.proxy.GithubProxy;
@@ -17,10 +19,12 @@ import java.util.stream.Collectors;
 public class GithubAppRestController {
 
     GithubProxy githubProxy;
+    RepoAdder repoAdder;
 
     @Autowired
-    public GithubAppRestController(GithubProxy githubProxy) {
+    public GithubAppRestController(GithubProxy githubProxy, RepoAdder repoAdder) {
         this.githubProxy = githubProxy;
+        this.repoAdder = repoAdder;
     }
 
     @GetMapping(value = "/{username}")
@@ -32,6 +36,11 @@ public class GithubAppRestController {
                     return new RepositoryBranchesDto(repo.name(), repo.owner().login(), branches);
                 })
                 .collect(Collectors.toList());
+        reposAndBranches
+                .forEach(repositoryBranch -> {
+                    Repo repo = new Repo(repositoryBranch.login(), repositoryBranch.name());
+                    repoAdder.addRepo(repo);
+                });
         return ResponseEntity.ok(reposAndBranches);
     }
 }
