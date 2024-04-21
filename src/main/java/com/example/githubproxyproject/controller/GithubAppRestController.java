@@ -1,7 +1,9 @@
 package com.example.githubproxyproject.controller;
 
-import com.example.githubproxyproject.Repo;
-import com.example.githubproxyproject.RepoAdder;
+import com.example.githubproxyproject.model.Repo;
+import com.example.githubproxyproject.dtos.request.CreateRepoRequestDto;
+import com.example.githubproxyproject.dtos.response.CreateRepoResponseDto;
+import com.example.githubproxyproject.service.RepoAdder;
 import com.example.githubproxyproject.dtos.BranchDto;
 import com.example.githubproxyproject.dtos.GetAllReposDto;
 import com.example.githubproxyproject.proxy.GithubProxy;

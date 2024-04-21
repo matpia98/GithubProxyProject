@@ -1,4 +1,4 @@
-package com.example.githubproxyproject;
+package com.example.githubproxyproject.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
