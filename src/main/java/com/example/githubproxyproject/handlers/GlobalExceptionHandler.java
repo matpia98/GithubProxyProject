@@ -1,5 +1,7 @@
 package com.example.githubproxyproject.handlers;
 
+import com.example.githubproxyproject.errordto.ErrorRepoResponseDto;
+import com.example.githubproxyproject.exceptions.RepoNotFoundException;
 import com.example.githubproxyproject.exceptions.UserNotFoundException;
 import com.example.githubproxyproject.errordto.ErrorApiLimitExceededDto;
 import com.example.githubproxyproject.errordto.ErrorResponseFormatDto;
@@ -49,4 +51,15 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.FORBIDDEN)
                 .body(errorApiLimitExceededDto);
     }
+
+    @ExceptionHandler(RepoNotFoundException.class)
+    @ResponseBody
+    public ResponseEntity<ErrorRepoResponseDto> handleRepoNotFoundException(RepoNotFoundException exception) {
+        log.warn("RepoNotFoundException when accessing repo");
+        ErrorRepoResponseDto errorRepoResponseDto = new ErrorRepoResponseDto(exception.getMessage(), HttpStatus.NOT_FOUND);
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(errorRepoResponseDto);
+    }
+
 }
