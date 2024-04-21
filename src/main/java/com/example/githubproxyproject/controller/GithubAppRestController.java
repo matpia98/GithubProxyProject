@@ -1,5 +1,6 @@
 package com.example.githubproxyproject.controller;
 
+import com.example.githubproxyproject.dtos.response.DeleteRepoResponseDto;
 import com.example.githubproxyproject.model.Repo;
 import com.example.githubproxyproject.dtos.request.CreateRepoRequestDto;
 import com.example.githubproxyproject.dtos.response.CreateRepoResponseDto;
@@ -8,7 +9,8 @@ import com.example.githubproxyproject.dtos.BranchDto;
 import com.example.githubproxyproject.dtos.GetAllReposDto;
 import com.example.githubproxyproject.proxy.GithubProxy;
 import com.example.githubproxyproject.dtos.RepositoryBranchesDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.githubproxyproject.service.RepoDeleter;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,16 +18,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@AllArgsConstructor
 public class GithubAppRestController {
 
     GithubProxy githubProxy;
     RepoAdder repoAdder;
-
-    @Autowired
-    public GithubAppRestController(GithubProxy githubProxy, RepoAdder repoAdder) {
-        this.githubProxy = githubProxy;
-        this.repoAdder = repoAdder;
-    }
+    RepoDeleter repoDeleter;
 
     @GetMapping(value = "/{username}")
     public ResponseEntity<List<RepositoryBranchesDto>> getAllReposFromUser(@PathVariable("username") String username) {
@@ -50,5 +48,12 @@ public class GithubAppRestController {
         Repo savedRepo = repoAdder.addRepo(repo);
         CreateRepoResponseDto body = RepoMapper.mapFromRepoToCreateRepoResponseDto(savedRepo);
         return ResponseEntity.ok(body);
+    }
+
+    @DeleteMapping("/repos/{id}")
+    public ResponseEntity<DeleteRepoResponseDto> deleteRepoByUsingIdPathVariable(@PathVariable Long id) {
+        repoDeleter.deleteById(id);
+        DeleteRepoResponseDto deleteRepoResponseDto = RepoMapper.mapFromRepoToDeleteRepoResponseDto(id);
+        return ResponseEntity.ok(deleteRepoResponseDto);
     }
 }

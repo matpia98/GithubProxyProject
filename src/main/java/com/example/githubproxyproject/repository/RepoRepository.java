@@ -5,4 +5,6 @@ import org.springframework.data.repository.Repository;
 
 public interface RepoRepository extends Repository<Repo, Long> {
     Repo save(Repo repo);
+
+    void deleteById(Long id);
 }
