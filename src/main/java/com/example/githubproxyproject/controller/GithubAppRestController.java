@@ -2,6 +2,7 @@ package com.example.githubproxyproject.controller;
 
 import com.example.githubproxyproject.dtos.response.DeleteRepoResponseDto;
 import com.example.githubproxyproject.dtos.response.GetAllReposResponseDto;
+import com.example.githubproxyproject.dtos.response.GetRepoResponseDto;
 import com.example.githubproxyproject.model.Repo;
 import com.example.githubproxyproject.dtos.request.CreateRepoRequestDto;
 import com.example.githubproxyproject.dtos.response.CreateRepoResponseDto;
@@ -56,5 +57,12 @@ public class GithubAppRestController {
         List<Repo> allRepos = repoRetriever.findAll();
         GetAllReposResponseDto getAllReposResponseDto = RepoMapper.mapFromRepoToGetAllReposResponseDto(allRepos);
         return ResponseEntity.ok(getAllReposResponseDto);
+    }
+
+    @GetMapping(value = "/repos/{id}")
+    public ResponseEntity<GetRepoResponseDto> getRepoById(@PathVariable Long id) {
+        Repo repo = repoRetriever.findRepoById(id);
+        GetRepoResponseDto response = RepoMapper.mapFromRepoToGetRepoResponseDto(repo);
+        return ResponseEntity.ok(response);
     }
 }

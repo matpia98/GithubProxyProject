@@ -2,6 +2,7 @@ package com.example.githubproxyproject.controller;
 
 import com.example.githubproxyproject.dtos.response.DeleteRepoResponseDto;
 import com.example.githubproxyproject.dtos.response.GetAllReposResponseDto;
+import com.example.githubproxyproject.dtos.response.GetRepoResponseDto;
 import com.example.githubproxyproject.model.Repo;
 import com.example.githubproxyproject.dtos.request.CreateRepoRequestDto;
 import com.example.githubproxyproject.dtos.response.CreateRepoResponseDto;
@@ -25,5 +26,9 @@ public class RepoMapper {
 
     public static GetAllReposResponseDto mapFromRepoToGetAllReposResponseDto(List<Repo> allRepos) {
         return new GetAllReposResponseDto(allRepos);
+    }
+
+    public static GetRepoResponseDto mapFromRepoToGetRepoResponseDto(Repo repo) {
+        return new GetRepoResponseDto(repo.getId(), repo.getOwner(), repo.getName());
     }
 }
