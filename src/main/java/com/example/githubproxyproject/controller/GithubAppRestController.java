@@ -8,9 +8,7 @@ import com.example.githubproxyproject.proxy.GithubProxy;
 import com.example.githubproxyproject.dtos.RepositoryBranchesDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,5 +40,13 @@ public class GithubAppRestController {
                     repoAdder.addRepo(repo);
                 });
         return ResponseEntity.ok(reposAndBranches);
+    }
+
+    @PostMapping(value = "/repos")
+    public ResponseEntity<CreateRepoResponseDto> postRepo(@RequestBody CreateRepoRequestDto createRepoRequestDto) {
+        Repo repo = RepoMapper.mapFromCreateRepoRequestDtoToRepo(createRepoRequestDto);
+        Repo savedRepo = repoAdder.addRepo(repo);
+        CreateRepoResponseDto body = RepoMapper.mapFromRepoToCreateRepoResponseDto(savedRepo);
+        return ResponseEntity.ok(body);
     }
 }
