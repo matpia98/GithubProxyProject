@@ -10,7 +10,7 @@ public class RepoDeleter {
 
     RepoRepository repoRepository;
 
-    public RepoDeleter(RepoRepository repoRepository) {
+    RepoDeleter(RepoRepository repoRepository) {
         this.repoRepository = repoRepository;
     }
 
