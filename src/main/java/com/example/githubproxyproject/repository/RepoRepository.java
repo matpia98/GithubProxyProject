@@ -14,4 +14,6 @@ public interface RepoRepository extends Repository<Repo, Long> {
     List<Repo> findAll();
 
     Optional<Repo> findById(Long id);
+
+    boolean existsById(Long id);
 }

@@ -27,4 +27,10 @@ public class RepoRetriever {
         return repoRepository.findById(id)
                 .orElseThrow(() -> new RepoNotFoundException("Repo with id " + id + " not found"));
     }
+
+    public void existsById(Long id) {
+        if (!repoRepository.existsById(id)) {
+            throw new RepoNotFoundException("Repo with id " + id + " not found");
+        }
+    }
 }

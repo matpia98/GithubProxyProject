@@ -9,12 +9,15 @@ import org.springframework.stereotype.Service;
 public class RepoDeleter {
 
     RepoRepository repoRepository;
+    RepoRetriever repoRetriever;
 
-    RepoDeleter(RepoRepository repoRepository) {
+    RepoDeleter(RepoRepository repoRepository, RepoRetriever repoRetriever) {
         this.repoRepository = repoRepository;
+        this.repoRetriever = repoRetriever;
     }
 
     public void deleteById(Long id) {
+        repoRetriever.existsById(id);
         log.info("deleting repo by id: " + id);
         repoRepository.deleteById(id);
     }
