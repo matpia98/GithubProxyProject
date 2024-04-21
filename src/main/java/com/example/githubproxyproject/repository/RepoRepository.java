@@ -1,6 +1,8 @@
 package com.example.githubproxyproject.repository;
 
 import com.example.githubproxyproject.model.Repo;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 
 import java.util.List;
@@ -16,4 +18,8 @@ public interface RepoRepository extends Repository<Repo, Long> {
     Optional<Repo> findById(Long id);
 
     boolean existsById(Long id);
+
+    @Modifying
+    @Query("UPDATE Repo r SET r.owner = :#{#newRepo.owner}, r.name = :#{#newRepo.name} WHERE r.id = :id")
+    void updateById(Long id, Repo newRepo);
 }

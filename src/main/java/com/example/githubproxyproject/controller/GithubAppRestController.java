@@ -1,18 +1,17 @@
 package com.example.githubproxyproject.controller;
 
+import com.example.githubproxyproject.dtos.request.UpdateRepoRequestDto;
+import com.example.githubproxyproject.dtos.request.UpdateRepoResponseDto;
 import com.example.githubproxyproject.dtos.response.DeleteRepoResponseDto;
 import com.example.githubproxyproject.dtos.response.GetAllReposResponseDto;
 import com.example.githubproxyproject.dtos.response.GetRepoResponseDto;
 import com.example.githubproxyproject.model.Repo;
 import com.example.githubproxyproject.dtos.request.CreateRepoRequestDto;
 import com.example.githubproxyproject.dtos.response.CreateRepoResponseDto;
-import com.example.githubproxyproject.service.RepoAdder;
+import com.example.githubproxyproject.service.*;
 import com.example.githubproxyproject.dtos.GetAllReposDto;
 import com.example.githubproxyproject.proxy.GithubProxy;
 import com.example.githubproxyproject.dtos.RepositoryBranchesDto;
-import com.example.githubproxyproject.service.RepoDeleter;
-import com.example.githubproxyproject.service.RepoRetriever;
-import com.example.githubproxyproject.service.ReposBranchesMerger;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +26,7 @@ public class GithubAppRestController {
     RepoAdder repoAdder;
     RepoDeleter repoDeleter;
     RepoRetriever repoRetriever;
+    RepoUpdater repoUpdater;
     ReposBranchesMerger reposBranchesMerger;
 
     @GetMapping(value = "/{username}")
@@ -63,6 +63,15 @@ public class GithubAppRestController {
     public ResponseEntity<GetRepoResponseDto> getRepoById(@PathVariable Long id) {
         Repo repo = repoRetriever.findRepoById(id);
         GetRepoResponseDto response = RepoMapper.mapFromRepoToGetRepoResponseDto(repo);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping(value = "/repos/{id}")
+    public ResponseEntity<UpdateRepoResponseDto> updateRepoById(@PathVariable Long id,
+                                                                @RequestBody UpdateRepoRequestDto request) {
+        Repo newRepo = RepoMapper.mapFromUpdateRepoRequestDtoToRepo(request);
+        repoUpdater.updateById(id, newRepo);
+        UpdateRepoResponseDto response = RepoMapper.mapFromRepotoUpdateRepoResponseDto(id, newRepo);
         return ResponseEntity.ok(response);
     }
 }

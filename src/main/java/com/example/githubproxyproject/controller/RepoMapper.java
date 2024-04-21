@@ -1,5 +1,7 @@
 package com.example.githubproxyproject.controller;
 
+import com.example.githubproxyproject.dtos.request.UpdateRepoRequestDto;
+import com.example.githubproxyproject.dtos.request.UpdateRepoResponseDto;
 import com.example.githubproxyproject.dtos.response.DeleteRepoResponseDto;
 import com.example.githubproxyproject.dtos.response.GetAllReposResponseDto;
 import com.example.githubproxyproject.dtos.response.GetRepoResponseDto;
@@ -30,5 +32,13 @@ public class RepoMapper {
 
     public static GetRepoResponseDto mapFromRepoToGetRepoResponseDto(Repo repo) {
         return new GetRepoResponseDto(repo.getId(), repo.getOwner(), repo.getName());
+    }
+
+    public static Repo mapFromUpdateRepoRequestDtoToRepo(UpdateRepoRequestDto request) {
+        return new Repo(request.owner(), request.name());
+    }
+
+    public static UpdateRepoResponseDto mapFromRepotoUpdateRepoResponseDto(Long id, Repo newRepo) {
+        return new UpdateRepoResponseDto(id, newRepo.getOwner(), newRepo.getName());
     }
 }
