@@ -1,8 +1,8 @@
 package com.example.githubproxyproject.service;
 
-import com.example.githubproxyproject.dtos.BranchDto;
-import com.example.githubproxyproject.dtos.GetAllReposDto;
-import com.example.githubproxyproject.dtos.RepositoryBranchesDto;
+import com.example.githubproxyproject.dtos.github.BranchDto;
+import com.example.githubproxyproject.dtos.github.GetAllReposDto;
+import com.example.githubproxyproject.dtos.github.RepositoryBranchesDto;
 import com.example.githubproxyproject.proxy.GithubProxy;
 import org.springframework.stereotype.Service;
 

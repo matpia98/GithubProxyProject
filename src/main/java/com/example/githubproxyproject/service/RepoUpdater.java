@@ -11,7 +11,7 @@ public class RepoUpdater {
     private final RepoRepository repoRepository;
     private final RepoRetriever repoRetriever;
 
-    public RepoUpdater(RepoRepository repoRepository, RepoRetriever repoRetriever) {
+    RepoUpdater(RepoRepository repoRepository, RepoRetriever repoRetriever) {
         this.repoRepository = repoRepository;
         this.repoRetriever = repoRetriever;
     }

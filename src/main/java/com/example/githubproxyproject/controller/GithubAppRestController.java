@@ -9,10 +9,11 @@ import com.example.githubproxyproject.model.Repo;
 import com.example.githubproxyproject.dtos.request.CreateRepoRequestDto;
 import com.example.githubproxyproject.dtos.response.CreateRepoResponseDto;
 import com.example.githubproxyproject.service.*;
-import com.example.githubproxyproject.dtos.GetAllReposDto;
+import com.example.githubproxyproject.dtos.github.GetAllReposDto;
 import com.example.githubproxyproject.proxy.GithubProxy;
-import com.example.githubproxyproject.dtos.RepositoryBranchesDto;
+import com.example.githubproxyproject.dtos.github.RepositoryBranchesDto;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,12 +23,12 @@ import java.util.List;
 @AllArgsConstructor
 public class GithubAppRestController {
 
-    GithubProxy githubProxy;
-    RepoAdder repoAdder;
-    RepoDeleter repoDeleter;
-    RepoRetriever repoRetriever;
-    RepoUpdater repoUpdater;
-    ReposBranchesMerger reposBranchesMerger;
+    private final GithubProxy githubProxy;
+    private final RepoAdder repoAdder;
+    private final RepoDeleter repoDeleter;
+    private final RepoRetriever repoRetriever;
+    private final RepoUpdater repoUpdater;
+    private final ReposBranchesMerger reposBranchesMerger;
 
     @GetMapping(value = "/{username}")
     public ResponseEntity<List<RepositoryBranchesDto>> getAllReposFromUser(@PathVariable("username") String username) {
@@ -53,8 +54,8 @@ public class GithubAppRestController {
     }
 
     @GetMapping(value = "/repos")
-    public ResponseEntity<GetAllReposResponseDto> getAllReposFromDatabase() {
-        List<Repo> allRepos = repoRetriever.findAll();
+    public ResponseEntity<GetAllReposResponseDto> getAllReposFromDatabase(Pageable pageable) {
+        List<Repo> allRepos = repoRetriever.findAll(pageable);
         GetAllReposResponseDto getAllReposResponseDto = RepoMapper.mapFromRepoToGetAllReposResponseDto(allRepos);
         return ResponseEntity.ok(getAllReposResponseDto);
     }

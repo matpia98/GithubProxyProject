@@ -1,6 +1,7 @@
 package com.example.githubproxyproject.repository;
 
 import com.example.githubproxyproject.model.Repo;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
@@ -13,7 +14,7 @@ public interface RepoRepository extends Repository<Repo, Long> {
 
     void deleteById(Long id);
 
-    List<Repo> findAll();
+    List<Repo> findAll(Pageable pageable);
 
     Optional<Repo> findById(Long id);
 

@@ -1,4 +1,4 @@
-package com.example.githubproxyproject.dtos;
+package com.example.githubproxyproject.dtos.github;
 
 import java.util.List;
 
